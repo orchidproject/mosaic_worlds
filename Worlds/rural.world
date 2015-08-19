@@ -13,7 +13,7 @@
       <link name="body0">
         <visual name="visual0">
           <geometry>
-            <mesh><uri>file:///home/jack/catkin_ws/src/mosaic_worlds/Worlds/MyTerrainWithTreesAndColourAndPeople.dae</uri></mesh>
+            <mesh><uri>file://Models/MyTerrainWithTreesAndColourAndPeople.dae</uri></mesh>
           </geometry>
         </visual>
       </link>

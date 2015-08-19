@@ -1,0 +1,4 @@
+<launch>
+<node pkg="rosbag" name="rosbag_play" type="play" output="screen" args=" $(find mosaic_worlds)/test_data/2015-08-18-15-03-54.bag" />
+<node pkg="image_transport" name="repub_node" type="republish" args="raw in:=/ardrone/front/image_raw raw out:=input_image" />
+</launch>
