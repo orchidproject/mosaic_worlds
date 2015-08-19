@@ -5,11 +5,11 @@ project(mosaic_worlds)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  mosaic_vision/
+#  mosaic_vision/
   roscpp
   rospy
   std_msgs
-  tum_simulator/
+#  tum_simulator/
 )
 
 ## System dependencies are found with CMake's conventions
