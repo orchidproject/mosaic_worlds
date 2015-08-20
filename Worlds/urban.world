@@ -13,7 +13,7 @@
       <link name="body0">
         <visual name="visual0">
           <geometry>
-            <mesh><uri>file://Models/urban.dae</uri></mesh>
+            <mesh><uri>model://urban.dae</uri></mesh>
           </geometry>
         </visual>
       </link>

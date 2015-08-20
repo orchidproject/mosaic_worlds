@@ -5,7 +5,7 @@
 
 	<include file="$(find mosaic_worlds)/launch/rural_world.launch">
 		<env name="GAZEBO_MASTER_URI" value="http://127.0.0.1:$(arg port)"/>
-		<env name="GAZEBO_MODEL_PATH" value="$(optenv GAZEBO_MODEL_PATH):$(find cvg_sim_gazebo)/models/"/>
+		<env name="GAZEBO_MODEL_PATH" value="$(optenv GAZEBO_MODEL_PATH):$(find mosaic_worlds)/Models/:$(find cvg_sim_gazebo)/models/"/>
 	</include>
 
 	<!-- Spawn simulated quadrotor uav -->
