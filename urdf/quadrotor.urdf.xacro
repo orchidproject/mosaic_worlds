@@ -30,24 +30,27 @@
 	</link>
 
 	<!-- Forward facing depth camera -->
-    <xacro:_ depth_camera name="front" parent="base_link" update_rate="30" res_x="640" res_y="360" image_format="R8G8B8" hfov="${81*M_PI/180}">
-	<xacro:kinect_depth_camera name="front" parent="base_link" update_rate="30" res_x="640" res_y="360" image_format="R8G8B8" hfov="${81*M_PI/180}">
+	<xacro:generic_camera name="front" parent="base_link" update_rate="30" res_x="640" res_y="360" image_format="R8G8B8" hfov="${81*M_PI/180}">
 		<origin xyz="0.21 0.0 0.01" rpy="0 0 0"/>
-    </xacro:kinect_depth_camera>
+    </xacro:generic_camera>
 
 	<!-- Downward facing depth camera -->
-	<xacro:kinect_depth_camera name="bottom" parent="base_link" update_rate="30" res_x="640" res_y="360" image_format="R8G8B8" hfov="${81*M_PI/180}">
+	<xacro:generic_camera name="bottom" parent="base_link" update_rate="30" res_x="640" res_y="360" image_format="R8G8B8" hfov="${81*M_PI/180}">
 		<origin xyz="0.15 0.0 0.0" rpy="0 ${M_PI/2} 0"/>
-	</xacro:kinect_depth_camera>
+	</xacro:generic_camera>
 
 	<!-- Sonar height sensor -->
 	<xacro:sonar_sensor name="sonar" parent="base_link" ros_topic="sonar_height" update_rate="10" min_range="0.01" max_range="3.0" field_of_view="${40*M_PI/180}" ray_count="3">
 		<origin xyz="-0.15 0.0 0.0" rpy="0 ${90*M_PI/180} 0"/>
 	</xacro:sonar_sensor>
 
-    <!-- GPS ADDED BY LUKE TEACY -->
-    <gazebo>      
-        <controller:hector_gazebo_ros_gps name="quadrotor_gps_sim" plugin="libhector_gazebo_ros_gps.so">
+	<!-- Gazebo Controller Plugins -->
+	<gazebo>
+		<static>false</static>
+			<!-- Gazebo Controller Plugins -->
+
+      <!-- GPS ADDED BY LUKE TEACY -->
+      <plugin name="quadrotor_gps_sim" filename="libhector_gazebo_ros_gps.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>4.0</updateRate>
         <bodyName>base_link</bodyName>
@@ -58,13 +61,8 @@
         <velocityDrift>0 0 0</velocityDrift>
         <velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>
         <!--interface:position name="gps_position"/-->
-        </controller:hector_gazebo_ros_gps>
-    </gazebo>
+      </plugin>
 
-	<!-- Gazebo Controller Plugins -->
-	<gazebo>
-		<static>false</static>
-			<!-- Gazebo Controller Plugins -->
       <plugin name="quadrotor_simple_controller" filename="libhector_gazebo_quadrotor_simple_controller.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
