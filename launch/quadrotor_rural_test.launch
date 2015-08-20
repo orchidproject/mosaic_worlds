@@ -9,7 +9,7 @@
 	</include>
 
 	<!-- Spawn simulated quadrotor uav -->
-	<include file="$(find cvg_sim_gazebo)/launch/spawn_quadrotor.launch" >
+	<include file="$(find mosaic_worlds)/launch/spawn_quadrotor.launch" >
 		<arg name="robot_namespace" value="$(arg robot_namespace)"/>
 	</include>
 </launch>
