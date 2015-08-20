@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<xacro:macro name="kinect_depth_camera" params="name parent *origin update_rate res_x res_y image_format hfov">
+	<joint name="${name}_joint" type="fixed">
+		<xacro:insert_block name="origin" />
+		<parent link="${parent}"/>
+		<child link="${name}_link"/>
+	</joint>
+      
+  <link name="${name}_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.01 0.01 0.01" />
+			</geometry>
+			<material name="Blue">
+				<color rgba="0.0 0.0 0.8 1"/>
+			</material>
+		</visual>
+		<!--collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.01 0.01 0.01" />
+			</geometry>
+		</collision-->
+	</link>
+
+	<gazebo reference="${name}_link">
+                <sensor type="depth" name="${name}_camera_sensor">
+			<camera name="head">
+                                <horizontal_fov>${hfov}</horizontal_fov>
+                                <image>
+                                        <width>${res_x}</width>
+                                        <height>${res_y}</height>
+                                        <format>${image_format}</format>
+                                </image>
+				<depth_camera>
+				</depth_camera>
+                                <clip>
+                                        <near>0.01</near>
+                                        <far>100</far>
+                                </clip>
+                        </camera>
+			<plugin name="${name}_controller" filename="libgazebo_ros_openni_kinect.so">
+				<baseline>0.2</baseline>
+		    		<alwaysOn>true</alwaysOn>
+				<updateRate>${update_rate}</updateRate>
+				<cameraName>${name}</cameraName>
+				<imageTopicName>image/image_raw</imageTopicName>
+				<cameraInfoTopicName>image/camera_info</cameraInfoTopicName>
+				<depthImageCameraInfoTopicName>nananananame</depthImageCameraInfoTopicName>
+				<depthImageTopicName>depth/image_raw</depthImageTopicName>
+				<depthImageInfoTopicName>depth/camera_info</depthImageInfoTopicName>
+				<pointCloudTopicName>depth/points</pointCloudTopicName>
+				<frameName>frame_name_param</frameName>
+				<pointCloudCutoff>0.5</pointCloudCutoff>
+				<pointCloudCutoffMax>50</pointCloudCutoffMax>
+				<distortionK1>0.00000001</distortionK1>
+				<distortionK2>0.00000001</distortionK2>
+				<distortionK3>0.00000001</distortionK3>
+				<distortionT1>0.00000001</distortionT1>
+				<distortionT2>0.00000001</distortionT2>
+				<CxPrime>0</CxPrime>
+				<Cx>0</Cx>
+				<Cy>0</Cy>
+				<focalLength>0</focalLength>
+				<hackBaseline>0</hackBaseline>
+			</plugin>
+		</sensor>
+	</gazebo>
+</xacro:macro>
+</robot>
+  
