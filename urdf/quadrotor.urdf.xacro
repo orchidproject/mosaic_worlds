@@ -49,20 +49,6 @@
 		<static>false</static>
 			<!-- Gazebo Controller Plugins -->
 
-      <!-- GPS ADDED BY LUKE TEACY -->
-      <plugin name="quadrotor_gps_sim" filename="libhector_gazebo_ros_gps.so">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>4.0</updateRate>
-        <bodyName>base_link</bodyName>
-        <topicName>gps</topicName>
-        <velocityTopicName>gps_vel</velocityTopicName>
-        <drift>5.0 5.0 5.0</drift>
-        <gaussianNoise>0.1 0.1 0.1</gaussianNoise>
-        <velocityDrift>0 0 0</velocityDrift>
-        <velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>
-        <!--interface:position name="gps_position"/-->
-      </plugin>
-
       <plugin name="quadrotor_simple_controller" filename="libhector_gazebo_quadrotor_simple_controller.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
@@ -145,6 +131,15 @@
 				<gaussianNoise>0.1 0.1 0.1</gaussianNoise>
 				<velocityDrift>0 0 0</velocityDrift>
 				<velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>
+			</plugin>
+
+			<plugin name="quadrotor_odom_sim" filename="libgazebo_ros_p3d.so">
+				<alwaysOn>true</alwaysOn>
+				<updateRate>100.0</updateRate>
+				<bodyName>base_link</bodyName>
+				<topicName>odom</topicName>
+				<gaussianNoise>0.1</gaussianNoise>
+				<frameName>map</frameName>
 			</plugin>
 
 			<plugin name="quadrotor_groundtruth_sim" filename="libgazebo_ros_p3d.so">
