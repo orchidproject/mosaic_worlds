@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="world" default="sar" />
+  <node name="object_tf" pkg="mosaic_worlds" type="sdf_tf_pub.py" args="$(find mosaic_worlds)/Worlds/$(arg world).world"/>
+</launch>
