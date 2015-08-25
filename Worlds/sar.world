@@ -14,7 +14,7 @@
       <direction>-0.5 0.1 -0.9</direction>
     </light>
     <model name='person1'>
-      <pose>116 -55 20 0 -0 0</pose>
+      <pose>106.457 -43.0812 8.02803 -1.54123 -0.382098 -1.51828</pose>
       <static>1</static>
       <link name='body1'>
         <visual name='visual1'>
@@ -30,7 +30,7 @@
       </link>
     </model>
     <model name='person2'>
-      <pose>27 -198 25 3.14159 1.57079 -1.34113</pose>
+      <pose>21.1471 -187.942 11.3412 -1.5708 0.570421 1.48365</pose>
       <static>1</static>
       <link name='body2'>
         <visual name='visual2'>
@@ -46,7 +46,7 @@
       </link>
     </model>
     <model name='person3'>
-      <pose>-78 135 19 3.14159 1.57079 -2.15441</pose>
+      <pose>-78 135 14.4262 2.20043 1.57079 -2.15498</pose>
       <static>1</static>
       <link name='body3'>
         <visual name='visual3'>
@@ -62,7 +62,7 @@
       </link>
     </model>
     <model name='person4'>
-      <pose>-16 151 13 -3.14159 1.57079 1.76168</pose>
+      <pose>-15.7117 150.48 11.8972 1.5708 1.07664 -1.06413</pose>
       <static>1</static>
       <link name='body4'>
         <visual name='visual4'>
@@ -78,7 +78,7 @@
       </link>
     </model>
     <model name='person5'>
-      <pose>-59 -24 28 -3.14159 1.57079 0.955943</pose>
+      <pose>-90.1914 -26.1141 14.9547 -1.30553 0.633154 2.68612</pose>
       <static>1</static>
       <link name='body5'>
         <visual name='visual5'>
@@ -94,13 +94,29 @@
       </link>
     </model>
     <model name='person6'>
-      <pose>-144 -74 21 3.14159 1.57079 3.14159</pose>
+      <pose>-144 -74 14.5488 -1.5708 1.29221 -0.429407</pose>
       <static>1</static>
       <link name='body6'>
         <visual name='visual6'>
           <geometry>
             <mesh>
               <uri>model://person6.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+    </model>
+    <model name='person7'>
+      <pose>8.683670 -0.596925 13.206353 -1.570797 -0.550849 0.853782</pose>
+      <static>1</static>
+      <link name='body7'>
+        <visual name='visual7'>
+          <geometry>
+            <mesh>
+              <uri>model://person7.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -204,60 +220,6 @@
         <pose>0 0 0 0 -0 0</pose>
         <link name='link'>
           <pose>0 0 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='person1'>
-        <pose>106.457 -43.0812 8.02803 -1.54123 -0.382098 -1.51828</pose>
-        <link name='body1'>
-          <pose>106.457 -43.0812 8.02803 -1.54123 -0.382098 -1.51828</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='person2'>
-        <pose>21.1471 -187.942 11.3412 -1.5708 0.570421 1.48365</pose>
-        <link name='body2'>
-          <pose>21.1471 -187.942 11.3412 -1.5708 0.570421 1.48365</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='person3'>
-        <pose>-78 135 14.4262 2.20043 1.57079 -2.15498</pose>
-        <link name='body3'>
-          <pose>-78 135 14.4262 2.20043 1.57079 -2.15498</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='person4'>
-        <pose>-15.7117 150.48 11.8972 1.5708 1.07664 -1.06413</pose>
-        <link name='body4'>
-          <pose>-15.7117 150.48 11.8972 1.5708 1.07664 -1.06413</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='person5'>
-        <pose>-90.1914 -26.1141 14.9547 -1.30553 0.633154 2.68612</pose>
-        <link name='body5'>
-          <pose>-90.1914 -26.1141 14.9547 -1.30553 0.633154 2.68612</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='person6'>
-        <pose>-144 -74 14.5488 -1.5708 1.29221 -0.429407</pose>
-        <link name='body6'>
-          <pose>-144 -74 14.5488 -1.5708 1.29221 -0.429407</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>

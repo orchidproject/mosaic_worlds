@@ -43,10 +43,10 @@
    </node>
 
    <node name="$(arg robot_name)_bottom_cam_to_tf" pkg="tf" type="static_transform_publisher"
-      args="0.15 0.0 0.0 0 $(arg pi/2) 0 $(arg robot_name) $(arg robot_name)/bottom_cam 100"/>
+      args="0.15 0.0 0.0 0 $(arg pi/2) 0 $(arg robot_name) $(arg robot_name)/ardrone_base_bottomcam 100"/>
 
    <node name="$(arg robot_name)_front_cam_to_tf" pkg="tf" type="static_transform_publisher"
-      args="0.21 0.0 0.01 0 0 0 $(arg robot_name) $(arg robot_name)/front_cam 100"/>
+      args="0.21 0.0 0.01 0 0 0 $(arg robot_name) $(arg robot_name)/ardrone_base_frontcam 100"/>
 
  </launch>
    

@@ -5,15 +5,18 @@ project(mosaic_worlds)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-#  mosaic_vision/
   roscpp
   rospy
   std_msgs
-#  tum_simulator/
+  tf
+  cv_bridge
+  image_geometry
+  image_transport
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
+find_package(OpenCV REQUIRED)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -82,10 +85,10 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES mosaic_worlds
-#  CATKIN_DEPENDS mosaic_vision/ roscpp rospy std_msgs tum_simulator/
-#  DEPENDS system_lib
+  INCLUDE_DIRS include
+  LIBRARIES mosaic_worlds
+  CATKIN_DEPENDS roscpp std_msgs image_transport
+  DEPENDS OpenCV
 )
 
 ###########
@@ -94,27 +97,35 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
+include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  ${BOOST_INCLUDE_DIRS}
 )
 
 ## Declare a cpp library
-# add_library(mosaic_worlds
-#   src/${PROJECT_NAME}/mosaic_worlds.cpp
-# )
+add_library(mosaic_worlds
+   src/TargetProjector.cpp
+ )
 
 ## Declare a cpp executable
-# add_executable(mosaic_worlds_node src/mosaic_worlds_node.cpp)
+add_executable(target_projection_node src/target_projection_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(mosaic_worlds_node mosaic_worlds_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(mosaic_worlds_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(mosaic_worlds
+   ${catkin_LIBRARIES}
+   ${OpenCV_LIBS}
+)
+
+target_link_libraries(target_projection_node
+   mosaic_worlds
+   ${catkin_LIBRARIES}
+   ${OpenCV_LIBS}
+)
 
 #############
 ## Install ##
@@ -131,11 +142,11 @@ install(PROGRAMS
 )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS mosaic_worlds mosaic_worlds_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+install(TARGETS mosaic_worlds target_projection_node
+   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark cpp header files for installation
 # install(DIRECTORY include/${PROJECT_NAME}/

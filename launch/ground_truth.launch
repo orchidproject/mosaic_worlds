@@ -2,4 +2,10 @@
 <launch>
   <arg name="world" default="sar" />
   <node name="object_tf" pkg="mosaic_worlds" type="sdf_tf_pub.py" args="$(find mosaic_worlds)/Worlds/$(arg world).world"/>
+  <node name="object_projector" pkg="mosaic_worlds" type="target_projection_node"
+     args="person1 person2 person3 person4 person5 person6" output="screen">
+     <remap from="image" to="/ardrone/bottom/image_raw"/>
+     <remap from="camera_info" to="/ardrone/bottom/camera_info"/>
+     <remap from="image_out" to="/ardrone/ground_truth/image"/>
+  </node>
 </launch>
