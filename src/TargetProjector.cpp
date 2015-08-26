@@ -67,8 +67,7 @@ void TargetProjector::imageCb(const sensor_msgs::ImageConstPtr& image_msg,
         //**********************************************************************
         //  Get the target's position within the camera frame
         //**********************************************************************
-        tf::Point centre = transform.getOrigin();
-        tf::Point bottomLeftCorner = transform();
+        tf::Point pt = transform.getOrigin();
 
         //**********************************************************************
         // Ensure point is not behind image frame before publishing
