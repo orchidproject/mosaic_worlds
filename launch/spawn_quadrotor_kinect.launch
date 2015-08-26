@@ -4,7 +4,7 @@
  <launch>
    <arg name="pi" value="3.14159265359" />
    <arg name="pi/2" value="1.5707963267948966" />
-   <arg name="model" default="$(find mosaic_worlds)/urdf/quadrotor.urdf.xacro"/>
+   <arg name="model" default="$(find mosaic_worlds)/urdf/quadrotor_kinect.urdf.xacro"/>
    <arg name="robot_name" default="ardrone"/>
    <arg name="robot_namespace" default="$(arg robot_name)/"/>
    <arg name="x" default="0"/>
