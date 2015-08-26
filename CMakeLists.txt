@@ -12,6 +12,8 @@ find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   image_geometry
   image_transport
+  mosaic_vision
+  message_filters
 )
 
 ## System dependencies are found with CMake's conventions
@@ -106,10 +108,12 @@ include_directories(
 ## Declare a cpp library
 add_library(mosaic_worlds
    src/TargetProjector.cpp
+   src/Observer.cpp
  )
 
 ## Declare a cpp executable
 add_executable(target_projection_node src/target_projection_node.cpp)
+add_executable(observer_node src/target_projection_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -117,6 +121,12 @@ add_executable(target_projection_node src/target_projection_node.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(mosaic_worlds
+   ${catkin_LIBRARIES}
+   ${OpenCV_LIBS}
+)
+
+target_link_libraries(observer_node
+   mosaic_worlds
    ${catkin_LIBRARIES}
    ${OpenCV_LIBS}
 )

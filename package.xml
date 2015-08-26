@@ -50,6 +50,8 @@
   <build_depend>opencv2</build_depend>
   <build_depend>cv_bridge</build_depend>
   <build_depend>tf</build_depend>
+  <build_depend>message_filters</build_depend>
+  <build_depend>mosaic_vision</build_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
@@ -60,6 +62,8 @@
   <run_depend>opencv2</run_depend>
   <run_depend>cv_bridge</run_depend>
   <run_depend>tf</run_depend>
+  <run_depend>message_filters</run_depend>
+  <run_depend>mosaic_vision</run_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
