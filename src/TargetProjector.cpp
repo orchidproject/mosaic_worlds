@@ -20,10 +20,15 @@ void TargetProjector::imageCb(const sensor_msgs::ImageConstPtr& image_msg,
     const sensor_msgs::CameraInfoConstPtr& info_msg)
 {
     ROS_DEBUG("Entered imageCb");
+
+    //**************************************************************************
+    //  Transform the image into OpenCV format
+    //**************************************************************************
     cv::Mat image;
     cv_bridge::CvImagePtr input_bridge;
     try {
-        input_bridge = cv_bridge::toCvCopy(image_msg, sensor_msgs::image_encodings::BGR8);
+        input_bridge = cv_bridge::toCvCopy(image_msg,
+                sensor_msgs::image_encodings::BGR8);
         image = input_bridge->image;
     }
     catch (cv_bridge::Exception& ex){
@@ -31,9 +36,20 @@ void TargetProjector::imageCb(const sensor_msgs::ImageConstPtr& image_msg,
     return;
     }
 
+    //**************************************************************************
+    //  Get the camera model required for projection
+    //**************************************************************************
     cam_model_.fromCameraInfo(info_msg);
 
+    //**************************************************************************
+    //  For each target frame we wish to project...
+    //**************************************************************************
     BOOST_FOREACH(const std::string& frame_id, frame_ids_) {
+
+        //**********************************************************************
+        //  Get the transform between the current target position and the
+        //  camera frame
+        //**********************************************************************
         tf::StampedTransform transform;
         try {
                 ros::Time acquisition_time = info_msg->header.stamp;
@@ -48,21 +64,33 @@ void TargetProjector::imageCb(const sensor_msgs::ImageConstPtr& image_msg,
             return;
         }
 
-        tf::Point pt = transform.getOrigin();
+        //**********************************************************************
+        //  Get the target's position within the camera frame
+        //**********************************************************************
+        tf::Point centre = transform.getOrigin();
+        tf::Point bottomLeftCorner = transform();
 
+        //**********************************************************************
         // Ensure point is not behind image frame before publishing
         // Note we should really be checking pt.z() -- see hack below
+        //**********************************************************************
         if(0 > pt.x())
         {
             continue;
         }
 
+        //**********************************************************************
         // horrible hack to get correct output
         // something work with transformation somewhere, but not sure where
         // negating and swaping the axis in this way seems to work though
+        //**********************************************************************
         //cv::Point3d pt_cv(pt.x(), pt.y(), pt.z());
         cv::Point3d pt_cv(-pt.y(), -pt.z(), pt.x());
         ROS_DEBUG("coord %f,%f,%f",-pt.y(),-pt.z(),-pt.x());
+
+        //**********************************************************************
+        //  Project the centre position into pixel coordinates
+        //**********************************************************************
         cv::Point2d uv;
         uv = cam_model_.project3dToPixel(pt_cv);
 
