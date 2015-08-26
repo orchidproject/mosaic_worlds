@@ -19,7 +19,7 @@ TargetProjector::TargetProjector(const std::vector<std::string>& frame_ids)
 void TargetProjector::imageCb(const sensor_msgs::ImageConstPtr& image_msg,
     const sensor_msgs::CameraInfoConstPtr& info_msg)
 {
-    ROS_INFO("Entered imageCb");
+    ROS_DEBUG("Entered imageCb");
     cv::Mat image;
     cv_bridge::CvImagePtr input_bridge;
     try {
@@ -49,12 +49,20 @@ void TargetProjector::imageCb(const sensor_msgs::ImageConstPtr& image_msg,
         }
 
         tf::Point pt = transform.getOrigin();
+
+        // Ensure point is not behind image frame before publishing
+        // Note we should really be checking pt.z() -- see hack below
+        if(0 > pt.x())
+        {
+            continue;
+        }
+
         // horrible hack to get correct output
         // something work with transformation somewhere, but not sure where
         // negating and swaping the axis in this way seems to work though
         //cv::Point3d pt_cv(pt.x(), pt.y(), pt.z());
         cv::Point3d pt_cv(-pt.y(), -pt.z(), pt.x());
-        ROS_INFO("coord %f,%f,%f",-pt.y(),-pt.z(),-pt.x());
+        ROS_DEBUG("coord %f,%f,%f",-pt.y(),-pt.z(),-pt.x());
         cv::Point2d uv;
         uv = cam_model_.project3dToPixel(pt_cv);
 
@@ -68,9 +76,9 @@ void TargetProjector::imageCb(const sensor_msgs::ImageConstPtr& image_msg,
         cv:putText(image, frame_id.c_str(), origin, cv::FONT_HERSHEY_SIMPLEX, 2, CV_RGB(255,0,0));
     }
 
-    ROS_INFO("Publishing image");
+    ROS_DEBUG("Publishing image");
     pub_.publish(input_bridge->toImageMsg());
-    ROS_INFO("image published");
+    ROS_DEBUG("image published");
 
 } // imageCb
 
