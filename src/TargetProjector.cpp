@@ -49,7 +49,12 @@ void TargetProjector::imageCb(const sensor_msgs::ImageConstPtr& image_msg,
         }
 
         tf::Point pt = transform.getOrigin();
-        cv::Point3d pt_cv(pt.x(), pt.y(), pt.z());
+        // horrible hack to get correct output
+        // something work with transformation somewhere, but not sure where
+        // negating and swaping the axis in this way seems to work though
+        //cv::Point3d pt_cv(pt.x(), pt.y(), pt.z());
+        cv::Point3d pt_cv(-pt.y(), -pt.z(), pt.x());
+        ROS_INFO("coord %f,%f,%f",-pt.y(),-pt.z(),-pt.x());
         cv::Point2d uv;
         uv = cam_model_.project3dToPixel(pt_cv);
 
