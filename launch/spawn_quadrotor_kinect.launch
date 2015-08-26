@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+
+ <launch>
+   <arg name="pi" value="3.14159265359" />
+   <arg name="pi/2" value="1.5707963267948966" />
+   <arg name="model" default="$(find mosaic_worlds)/urdf/quadrotor.urdf.xacro"/>
+   <arg name="robot_name" default="ardrone"/>
+   <arg name="robot_namespace" default="$(arg robot_name)/"/>
+   <arg name="x" default="0"/>
+   <arg name="y" default="0"/>
+   <arg name="z" default="0.5"/>
+   <arg name="R" default="0"/>
+   <arg name="P" default="0"/>
+   <arg name="Y" default="0"/>
+   <!-- send the robot XML to param server -->
+   <param name="robot_description" command="$(find xacro)/xacro.py '$(arg model)'" />
+   
+   <!-- push robot_description to factory and spawn robot in gazebo -->
+   <node name="$(anon spawn_robot)" pkg="gazebo_ros" type="spawn_model"
+   args="-param robot_description
+   -urdf
+   -x '$(arg x)'
+   -y '$(arg y)'
+   -z '$(arg z)'
+   -R '$(arg R)'
+   -P '$(arg P)'
+   -Y '$(arg Y)'
+   -model $(arg robot_namespace)
+   -robot_namespace $(arg robot_namespace)"
+     respawn="false" output="screen"/>
+     
+   <!-- start robot state publisher -->
+   <!--node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
+     <param name="publish_frequency" type="double" value="50.0" />
+     <param name="tf_prefix" type="string" value="" />
+   </node-->
+
+   <node name="$(arg robot_name)_to_tf" pkg="message_to_tf" type="message_to_tf" output="screen">
+     <param name="odometry_topic" value="$(arg robot_namespace)/ground_truth/state" />
+     <param name="frame_id" value="map" />
+     <param name="child_frame_id" value="$(arg robot_name)" />
+   </node>
+
+   <node name="$(arg robot_name)_bottom_cam_to_tf" pkg="tf" type="static_transform_publisher"
+      args="0.15 0.0 0.0 0 $(arg pi/2) 0 $(arg robot_name) $(arg robot_name)/ardrone_base_bottomcam 100"/>
+
+   <node name="$(arg robot_name)_front_cam_to_tf" pkg="tf" type="static_transform_publisher"
+      args="0.21 0.0 0.01 0 0 0 $(arg robot_name) $(arg robot_name)/ardrone_base_frontcam 100"/>
+
+ </launch>
+   

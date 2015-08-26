@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<xacro:property name="M_PI" value="3.1415926535897931" />
 <xacro:macro name="kinect_depth_camera" params="name parent *origin update_rate res_x res_y image_format hfov">
 	<joint name="${name}_joint" type="fixed">
 		<xacro:insert_block name="origin" />
@@ -45,14 +46,14 @@
 				<baseline>0.2</baseline>
 		    		<alwaysOn>true</alwaysOn>
 				<updateRate>${update_rate}</updateRate>
-				<cameraName>${name}_camera</cameraName>
+				<cameraName>${name}</cameraName>
 				<imageTopicName>image_raw</imageTopicName>
 				<cameraInfoTopicName>camera_info</cameraInfoTopicName>
 				<depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
 				<depthImageTopicName>depth/image_raw</depthImageTopicName>
-				<depthImageInfoTopicName>depth/camera_info</depthImageInfoTopicName>
+				<depthImageInfoTopicName>depthcamera_info</depthImageInfoTopicName>
 				<pointCloudTopicName>depth/points</pointCloudTopicName>
-				<frameName>${name}_frame</frameName>
+				<frameName>ardrone_base_${name}cam</frameName>
 				<pointCloudCutoff>0.5</pointCloudCutoff>
 				<pointCloudCutoffMax>50</pointCloudCutoffMax>
 				<distortionK1>0.0000000</distortionK1>
